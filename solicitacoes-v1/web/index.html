@@ -1,0 +1,114 @@
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Sistema de Solicitações</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	</head>
+
+	<body>
+		<div class="container">
+			<h1>Sistema de Solicitações</h1>
+			<hr>
+			<div>
+
+				<input label="id" type="hidden"/>
+
+				<div class="from-group">
+					<label for="Nome"></label>
+					<input class="from-control" label="nome" placeholder="Digite seu nome"/>
+				</div>
+
+				<div class="from-group">
+					<label for="Assunto"></label>
+					<input class="from-control" label="assunto" placeholder="Digite seu assunto"/>
+				</div>
+
+				<div class="from-group">
+					<label for="Mensagem"></label>
+					<input class="from-control" label="mensagem" placeholder="Digite sua mensagem"/>
+				</div>
+
+				<button class="btn btn-success" incluir>Enviar</button>
+
+			</div>
+<!-- 			<hr>
+			<table class="table" id="cadastro">
+				<thead>
+					<tr>
+						<th>Nomes Cadastrados</th>
+						<th>Ações</th>
+					</tr>
+				</thead>
+				<tbody id="cadastroLinhas"></tbody>
+			</table>
+ -->		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script>
+
+			const APP = "http://localhost:2424"
+
+			const createButton = (label, type) => {
+				return $( '<button>' ).addClass( `btn btn-${type}` ).html( label )
+			}
+
+			const formataLinhas = usuarios => {
+				const linhas = usuarios.map( usuario => {
+					const updateButton = createButton( 'Atualizar', 'warning' )
+					updateButton.click( () => atualizaCadastro( usuario ) )
+					const removeButton = createButton( 'Excluir', 'danger' )
+					removeButton.click( () => removeCadastro( usuario ) )
+					return $( '<tr>' )
+						.append( $( '<td>' ).append( usuario.nome ) )
+						.append( $( '<td>' ).append( updateButton ).append( removeButton ) )
+				} )
+				$( '#cadastroLinhas' ).html( linhas )
+			}
+
+			const atualizaCadastro = usuario => {
+				console.log( "atualiza_ini" )
+				$('[label=id]').val(usuario._id)
+				$('[label=nome]').val(usuario.nome)
+				console.log( "atualiza_fim" )
+			}
+
+			const removeCadastro = usuario => {
+				$.ajax( {
+					method: 'DELETE',
+					url: `${APP}/cadastro/${usuario._id}`,
+					success: getCadastro
+				} )
+			}
+
+			const getCadastro = () => {
+				$.ajax({
+					url: `${APP}/cadastro`,
+					success: cadastro => {
+						// console.log( cadastro )
+						formataLinhas( cadastro )
+						$('[label]').val('')
+					}
+				})
+			}
+
+			const salvaCadastro = () => {
+				const _id = $('[label=id]').val()
+				const nome = $('[label=nome]').val()
+				$.ajax({
+					method: _id ? 'PUT' : 'POST',
+					url: `${APP}/cadastro/${_id}`,
+					data: _id ? {_id, nome} : {nome},
+					success: getCadastro
+				})
+			}
+
+			$(() => {
+				getCadastro()
+				$('[incluir]').click( salvaCadastro )
+			})
+
+		</script>
+	</body>
+
+</html>
