@@ -1,5 +1,7 @@
 # python-template
 
+<img src = "img/python-logo.png" width = "300"/>
+
 Sugestão de cabeçalho padrão a ser utilizado em scripts Python que manipulam arquivos texto para uso com Machine Learning. Já traz algumas configurações de display que tornam mais prática a visualização de dados. Arquivo [python-template.py](python-template.py)
 
 ~~~ python
