@@ -1,0 +1,29 @@
+version: "3"
+
+networks:
+  database_net:
+  application_net:
+
+services:
+
+  # https://hub.docker.com/_/influxdb
+  database:
+    image: influxdb:1.7
+    networks:
+      - database_net
+
+  # https://hub.docker.com/_/python
+  application:
+    image: python:3.7.4
+    ports:
+      - 8086:8086
+    networks:
+      - application_net
+      - database_net
+    volumes:
+      - ./source:/source
+      - ./output:/output
+    working_dir: /source
+    command: bash ./bees.sh
+    depends_on:
+      - database
