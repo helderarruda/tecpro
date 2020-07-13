@@ -1,6 +1,6 @@
 # Arquitetura para predição de séries temporais usando redes neurais: um estudo de caso com abelhas
 
-O trabalho apresenta uma proposta de arquitetura para predição de dados de séries temporais geradas por atividades de movimentação de abelhas. O estudo de caso usa as séries temporais de um dataset disponibilizado no trabalho de [Gomes et. al. (2020)](https://doi.org/10.1038/s41598-019-56352-8) que também utilizou variáveis climáticas em seu estudo.
+O trabalho apresenta uma proposta de arquitetura para predição de dados de séries temporais geradas por atividades de movimentação de abelhas. O estudo de caso usa as séries temporais de um dataset disponibilizado no trabalho de [Gomes et al. (2020)](https://doi.org/10.1038/s41598-019-56352-8) que também utilizou variáveis climáticas em seu estudo.
 
 ## Arquitetura
 
